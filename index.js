@@ -32,17 +32,17 @@ app.post("/create",
   async (req, res,) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, errors: errors.array() });
+      return res.send({ success: false, errors: errors.array() });
     }
     try {
       console.log(req.body)
       const data = new userModel(req.body)
       await data.save()
-      res.status(201).json({ success: true, message: "Data saved successfully", data: data });
+      res.send({ success: true, message: "Data saved successfully", data: data });
     } catch (error) {
       next(error);
     }
-  })
+  });
 
 app.get("/:id", async (req, res, next) => {
   try {
@@ -50,7 +50,7 @@ app.get("/:id", async (req, res, next) => {
     console.log(id);
     const data = await userModel.findById(id);
     if (!data) {
-      return res.status(404).json({ success: false, message: "Restaurant not found" });
+      return res.send.json({ success: false, message: "Restaurant not found" });
     }
     res.json({ success: true, data: data });
   } catch (error) {
@@ -63,7 +63,7 @@ app.put("/update", async (req, res, next) => {
   try {
     const { _id, ...rest } = req.body
     const data = await userModel.updateOne({ _id: _id }, rest)
-    res.status(200).json({ success: true, message: "Data updated successfully", data: data })
+    res.send({ success: true, message: "Data updated successfully", data: data })
   } catch (error) {
     next(error);
   }
