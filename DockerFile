@@ -1,6 +1,6 @@
-FROM node:16-alpine
-WORKDIR / index
-COPY . /index
-RuN npm install
-EXPOSE 5000
+FROM node:slim
+WORKDIR /app
+COPY . /app
+RUN npm install
+EXPOSE 8080
 CMD ["npm","start"]
