@@ -1,0 +1,18 @@
+version: '2'
+services:
+  db:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hasani
+      MONGO_INITDB_ROOT_PASSWORD: Hasani1234
+    volumes:
+      - mongo-data:/data/db
+  
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+volumes:
+  mongo-data:
